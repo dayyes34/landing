@@ -1,26 +1,99 @@
-@import "tailwindcss";
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  body {
+    @apply bg-black text-gray-200; /* Полностью черный фон, чуть более светлый текст для контраста */
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased; /* Улучшение рендеринга шрифтов на WebKit */
+    -moz-osx-font-smoothing: grayscale; /* Улучшение рендеринга шрифтов на Firefox */
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Улучшенная типографика */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight; /* Более легкое начертание, сжатый трекинг */
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1 {
+    @apply text-4xl sm:text-5xl md:text-6xl leading-tight; /* Добавил sm и leading-tight */
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl md:text-5xl leading-tight; /* Добавил sm, md и leading-tight */
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl md:text-4xl leading-snug; /* Добавил sm, md и leading-snug */
+  }
+
+  p {
+    @apply text-base md:text-lg text-gray-400 leading-relaxed; /* Слегка приглушенный цвет для параграфов, увеличенный интерлиньяж */
+  }
+
+  a {
+    @apply text-brand-cyan hover:text-cyan-300 transition-colors duration-200; /* Ссылки по умолчанию в цвете бренда */
+  }
+
+  /* Улучшение фокуса для доступности */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-pink ring-offset-2 ring-offset-black;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; /* Увеличил max-w и добавил разные отступы для адаптивности */
+  }
+
+  .btn-primary {
+    @apply bg-brand-cyan hover:bg-cyan-400 active:bg-cyan-500 text-black font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 active:scale-95;
+    /* Более темный текст для лучшего контраста, добавлены тени, эффекты при наведении и клике */
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-brand-pink text-brand-pink hover:bg-brand-pink hover:text-black font-bold py-3 px-8 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 active:scale-95;
+    /* "Ghost button" стиль, при наведении инверсия цветов */
+  }
+
+  /* Можно добавить общие стили для карточек, если они часто используются */
+  .card-base {
+    @apply bg-gray-900/70 backdrop-blur-sm p-6 rounded-xl shadow-xl border border-gray-700/50;
+    /* Полупрозрачный фон с блюром, граница для глубины */
+  }
 }
+
+@layer utilities {
+  /* Пример кастомной утилиты, если понадобится */
+  .text-glow-cyan {
+    text-shadow: 0 0 8px theme('colors.brand-cyan'), 0 0 16px theme('colors.brand-cyan / 50%');
+  }
+  .text-glow-pink {
+    text-shadow: 0 0 8px theme('colors.brand-pink'), 0 0 16px theme('colors.brand-pink / 50%');
+  }
+}
+
+/* Удаление общих отступов для секций отсюда, 
+   чтобы управлять ими более гранулярно на уровне компонентов, 
+   если это необходимо, или можно оставить, если это общая практика */
+/*
+section {
+  @apply py-16 md:py-24 px-4 md:px-8; 
+}
+*/
+
+/* Важно: Убедитесь, что у вас определены цвета 'brand-cyan' и 'brand-pink' в tailwind.config.js */
+/* Например:
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'brand-cyan': '#22d3ee', // Пример
+        'brand-pink': '#ec4899', // Пример
+      },
+    },
+  },
+  plugins: [],
+}
+*/
